@@ -15,10 +15,10 @@
       nav a { color: #23629b; font-size: .85rem; font-weight: 800; text-decoration: none; }
       header { border-left: 4px solid #2672b9; margin-bottom: 4rem; padding-left: 1.25rem; }
       h1 { color: #123d70; font-family: Georgia, serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 400; letter-spacing: -.04em; line-height: .94; margin: 0; max-width: none; white-space: nowrap; }
-      .lead { color: #4c6580; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.55; margin: 1.5rem 0 0; max-width: 42rem; }
+      .lead { color: #4c6580; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.55; margin: 1.5rem 0 0; max-width: none; text-align: justify; }
       .author { background: #c5dcf2; display: grid; gap: 2rem; grid-template-columns: .7fr 1.3fr; margin-bottom: 1rem; padding: clamp(1.25rem, 4vw, 2.5rem); }
       .author h2, .section-title { color: #123d70; font-family: Georgia, serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; margin: .4rem 0 1rem; }
-      .author p, .fact p, .step p { color: #4c6580; line-height: 1.6; margin: 0; }
+      .author p, .fact p, .step p { color: #4c6580; line-height: 1.6; margin: 0; text-align: justify; }
       .author-mark { background: #0b3568; min-height: 12rem; overflow: hidden; position: relative; }
       .author-mark::before { background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(220,234,250,.16) 29px 30px), repeating-linear-gradient(0deg, transparent 0 28px, rgba(220,234,250,.16) 29px 30px); content: ""; inset: 0; position: absolute; }
       .signal-core { background: #78b7e5; border: 14px solid #2b78b8; border-radius: 50%; height: 5rem; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 5rem; }
@@ -35,12 +35,12 @@
       .fact strong { color: #123d70; display: block; font-family: Georgia, serif; font-size: 2rem; font-weight: 400; margin-bottom: .6rem; }
       .message { background: #0b3568; color: #e9f3fd; margin-top: 1rem; padding: clamp(1.5rem, 4vw, 3rem); }
       .message .eyebrow { color: #8cc4ec; }
-      .message blockquote { font-family: Georgia, serif; font-size: clamp(1.55rem, 3vw, 2.7rem); line-height: 1.15; margin: 1rem 0 0; max-width: 28ch; }
+      .message blockquote { font-family: Georgia, serif; font-size: clamp(1.45rem, 3vw, 3.1rem); line-height: 1.15; margin: 1rem 0 0; max-width: none; text-align: justify; }
       .contact { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
       .contact-link { align-items: center; background: #e9f3fd; border: 1px solid #a8c6e3; color: #123d70; display: inline-flex; font-size: .82rem; font-weight: 800; gap: .5rem; padding: .7rem .85rem; text-decoration: none; }
       .contact-link:hover { background: #c5dcf2; }
       .contact-link svg { fill: currentColor; height: 1.15rem; width: 1.15rem; }
-      footer { color: #58718d; font-size: .8rem; line-height: 1.55; margin-top: 4rem; max-width: 50rem; }
+      footer { color: #58718d; font-size: .8rem; line-height: 1.55; margin-top: 4rem; max-width: none; text-align: justify; }
       @media (max-width: 760px) {
         h1 { font-size: clamp(2.4rem, 12vw, 4rem); white-space: normal; }
         .author, .workflow, .facts { grid-template-columns: 1fr; }
