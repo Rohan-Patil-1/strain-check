@@ -5,6 +5,7 @@
 The page:
 
 - installs the pose model automatically on first open with download progress;
+- uses MediaPipe Pose Landmarker Full for better landmark quality while remaining practical on phones;
 - lets a user select a local video;
 - loads MediaPipe Tasks Vision in the browser;
 - samples a full local video timeline with Pose Landmarker;

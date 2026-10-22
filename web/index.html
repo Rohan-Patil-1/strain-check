@@ -54,6 +54,12 @@
       .metric span { color: #52645a; display: block; font-size: .75rem; text-transform: uppercase; }
       .metric strong { color: var(--forest); display: block; font-family: Georgia, serif; font-size: 2rem; font-weight: 400; margin-top: .7rem; overflow-wrap: anywhere; }
       .notes { color: #66766c; font-size: .78rem; line-height: 1.5; margin: 1.5rem 0 0; max-width: 65ch; }
+      .trust-grid { border-top: 1px solid var(--line); display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); margin-top: 2rem; padding-top: 2rem; }
+      .trust-card { background: #f0f5ed; padding: 1.25rem; }
+      .trust-card h2 { color: var(--forest); font-family: Georgia, serif; font-size: 1.45rem; font-weight: 400; margin: .35rem 0 .65rem; }
+      .trust-card p, .trust-card li { color: #52645a; font-size: .86rem; line-height: 1.55; }
+      .trust-card ul { margin: .5rem 0 0; padding-left: 1.1rem; }
+      .fine-print { font-size: .72rem !important; }
       @media (max-width: 680px) {
         main { padding: 1rem; }
         .topbar { margin-bottom: 3rem; }
@@ -69,6 +75,7 @@
         .results { grid-template-columns: repeat(2, 1fr); }
         .metric { min-height: 5.5rem; padding: .75rem; }
         .metric strong { font-size: 1.55rem; }
+        .trust-grid { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -81,7 +88,7 @@
       </section>
       <section class="workspace">
         <div class="model-row">
-          <div><div class="eyebrow">01 / Prepare this device</div><p id="model-status" class="model-state" role="status">Installing the pose model for the first time...</p></div>
+          <div><div class="eyebrow">01 / Prepare this device</div><p id="model-status" class="model-state" role="status">Installing the full-accuracy pose model for the first time...</p></div>
           <strong id="model-percent" class="model-percent">0%</strong>
         </div>
         <progress id="model-progress" value="0" max="1" aria-label="Pose model installation progress"></progress>
@@ -105,6 +112,10 @@
           <div class="metric"><span>Average REBA</span><strong id="reba">-</strong></div>
         </section>
         <p class="notes">Prototype screening only. Review the original video and cross-check results with the official RULA/REBA worksheets before making a workplace decision. Videos stay in this browser and are not uploaded by the app.</p>
+        <section class="trust-grid" aria-label="Privacy and safety information">
+          <article class="trust-card"><div class="eyebrow">Privacy</div><h2>Your video stays here</h2><p>The selected video is processed in this browser. This project does not upload, store, sell, or share your video with the author, managers, or a project server. Only the model files are downloaded.</p><p class="fine-print">The public CDN and hosting provider may receive ordinary request metadata such as IP address when loading website assets. The video file itself is not sent by this app.</p></article>
+          <article class="trust-card"><div class="eyebrow">Safety</div><h2>Record safely</h2><ul><li>Use a light, normal object and never lift a dangerous load.</li><li>Stop immediately if you feel pain, dizziness, or discomfort.</li><li>Get consent before recording another person.</li><li>Do not use the result as a medical, legal, or workplace-safety decision by itself.</li></ul></article>
+        </section>
       </section>
     </main>
     <script type="module" src="./app.js?v=20261021-2"></script>

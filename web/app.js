@@ -22,7 +22,7 @@ const frameCount = document.querySelector("#frames");
 const poseCount = document.querySelector("#poses");
 const rulaValue = document.querySelector("#rula");
 const rebaValue = document.querySelector("#reba");
-const modelUrl = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task";
+const modelUrl = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task";
 
 let poseLandmarker;
 let latestResults;
