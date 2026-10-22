@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#123d70">
     <title>About Strain Check</title>
     <style>
-      :root { color: #10233f; background: #f3f7fc; font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
+      :root { color: #091a33; background: #dceafa; font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
       * { box-sizing: border-box; }
-      body { margin: 0; }
+      body { background: linear-gradient(135deg, #dceafa 0%, #bad5ef 54%, #edf6ff 100%); margin: 0; }
       main { margin: 0 auto; max-width: 74rem; padding: clamp(1rem, 4vw, 3rem); }
       nav { align-items: center; display: flex; justify-content: space-between; margin-bottom: clamp(3rem, 8vw, 7rem); }
       .brand, .eyebrow { color: #123d70; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
@@ -16,18 +16,31 @@
       header { border-left: 4px solid #2672b9; margin-bottom: 4rem; padding-left: 1.25rem; }
       h1 { color: #123d70; font-family: Georgia, serif; font-size: clamp(3rem, 8vw, 7rem); font-weight: 400; letter-spacing: -.04em; line-height: .92; margin: 0; max-width: 10ch; }
       .lead { color: #4c6580; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.55; margin: 1.5rem 0 0; max-width: 42rem; }
-      .author { background: #dceaf8; display: grid; gap: 2rem; grid-template-columns: .7fr 1.3fr; margin-bottom: 1rem; padding: clamp(1.25rem, 4vw, 2.5rem); }
+      .author { background: #c5dcf2; display: grid; gap: 2rem; grid-template-columns: .7fr 1.3fr; margin-bottom: 1rem; padding: clamp(1.25rem, 4vw, 2.5rem); }
       .author h2, .section-title { color: #123d70; font-family: Georgia, serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; margin: .4rem 0 1rem; }
       .author p, .fact p, .step p { color: #4c6580; line-height: 1.6; margin: 0; }
-      .author-mark { align-items: center; background: #123d70; color: #e8f1fb; display: flex; font-family: Georgia, serif; font-size: 5rem; justify-content: center; min-height: 12rem; }
+      .author-mark { background: #0b3568; min-height: 12rem; overflow: hidden; position: relative; }
+      .author-mark::before { background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(220,234,250,.16) 29px 30px), repeating-linear-gradient(0deg, transparent 0 28px, rgba(220,234,250,.16) 29px 30px); content: ""; inset: 0; position: absolute; }
+      .signal-core { background: #78b7e5; border: 14px solid #2b78b8; border-radius: 50%; height: 5rem; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 5rem; }
+      .signal-core::after { border: 1px solid #b9dcf6; border-radius: 50%; content: ""; inset: -2.1rem; position: absolute; }
+      .orbit { border: 1px solid rgba(185,220,246,.8); border-radius: 50%; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%) rotate(28deg); }
+      .orbit-a { height: 9rem; width: 15rem; }
+      .orbit-b { height: 15rem; transform: translate(-50%, -50%) rotate(-28deg); width: 9rem; }
       .section { border-top: 1px solid #c3d5e8; margin-top: 4rem; padding-top: 2rem; }
       .workflow { display: grid; gap: 1rem; grid-template-columns: repeat(5, 1fr); }
-      .step, .fact { background: #e8f1fb; padding: 1.25rem; }
+      .step, .fact { background: #d5e7f8; padding: 1.25rem; }
       .step-number { color: #2672b9; font-family: Georgia, serif; font-size: 2rem; }
       .step h3, .fact h3 { color: #123d70; font-size: 1rem; margin: .7rem 0 .55rem; }
       .facts { display: grid; gap: 1rem; grid-template-columns: repeat(3, 1fr); }
       .fact strong { color: #123d70; display: block; font-family: Georgia, serif; font-size: 2rem; font-weight: 400; margin-bottom: .6rem; }
-      footer { color: #6c83a0; font-size: .8rem; line-height: 1.55; margin-top: 4rem; max-width: 50rem; }
+      .message { background: #0b3568; color: #e9f3fd; margin-top: 1rem; padding: clamp(1.5rem, 4vw, 3rem); }
+      .message .eyebrow { color: #8cc4ec; }
+      .message blockquote { font-family: Georgia, serif; font-size: clamp(1.55rem, 3vw, 2.7rem); line-height: 1.15; margin: 1rem 0 0; max-width: 28ch; }
+      .contact { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+      .contact-link { align-items: center; background: #e9f3fd; border: 1px solid #a8c6e3; color: #123d70; display: inline-flex; font-size: .82rem; font-weight: 800; gap: .5rem; padding: .7rem .85rem; text-decoration: none; }
+      .contact-link:hover { background: #c5dcf2; }
+      .contact-link svg { fill: currentColor; height: 1.15rem; width: 1.15rem; }
+      footer { color: #58718d; font-size: .8rem; line-height: 1.55; margin-top: 4rem; max-width: 50rem; }
       @media (max-width: 760px) {
         .author, .workflow, .facts { grid-template-columns: 1fr; }
         .workflow { gap: .75rem; }
@@ -44,8 +57,8 @@
         <p class="lead">Strain Check turns ordinary phone video into an early, explainable ergonomic screening signal. It is designed to help people notice posture patterns, ask better questions, and decide what deserves a closer review.</p>
       </header>
       <section class="author">
-        <div class="author-mark" aria-hidden="true">SC</div>
-        <div><div class="eyebrow">Author</div><h2>Rohan Patil</h2><p>Strain Check is an independent prototype built to explore privacy-conscious ergonomic assessment from everyday phone video. The project combines browser pose estimation, joint-angle measurement, and transparent RULA/REBA-inspired screening logic.</p></div>
+        <div class="author-mark" aria-label="Strain Check signal graphic"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="signal-core"></div></div>
+        <div><div class="eyebrow">Author</div><h2>Rohan Patil</h2><p>Rohan Patil is a researcher and technology creator interested in practical tools that help people work more safely and confidently.</p><p>He created Strain Check as an independent project, taking it from research and planning to a working public prototype. The project reflects his focus on thoughtful problem-solving, privacy, and making useful technology easier for everyday people to access.</p><div class="contact" aria-label="Contact Rohan Patil"><a class="contact-link" href="https://www.linkedin.com/in/rohanpatil3001/" target="_blank" rel="noreferrer" aria-label="Connect with Rohan Patil on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5A2.2 2.2 0 1 1 5.2 8a2.2 2.2 0 0 1 0-4.5ZM3.3 9.7h3.8V21H3.3V9.7Zm6.2 0H13v1.5h.1c.5-.9 1.8-1.9 3.8-1.9 4 0 4.7 2.6 4.7 6V21h-3.8v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21H9.5V9.7Z"/></svg> LinkedIn</a><a class="contact-link" href="mailto:rohan.p3001@gmail.com" aria-label="Email Rohan Patil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 3.2v.3l9 5.6 9-5.6v-.3H3Zm18 8.8V11l-8.5 5.3a1 1 0 0 1-1 0L3 11v6h18Z"/></svg> Email</a><a class="contact-link" href="https://github.com/Rohan-Patil-1" target="_blank" rel="noreferrer" aria-label="View Rohan Patil's GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 0 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.9.1-.7.4-1.1.6-1.4-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.7 9.7 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.5 4.9.4.3.7.9.7 1.8V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg> GitHub</a></div></div>
       </section>
       <section class="section"><div class="eyebrow">How it works</div><h2 class="section-title">From a local clip to a useful signal.</h2><div class="workflow">
         <article class="step"><div class="step-number">01</div><h3>Capture</h3><p>Select a short work-task video from your device. The app does not force the camera open.</p></article>
@@ -54,6 +67,7 @@
         <article class="step"><div class="step-number">04</div><h3>Screen</h3><p>Deterministic prototype rules produce RULA and REBA-style scores.</p></article>
         <article class="step"><div class="step-number">05</div><h3>Review</h3><p>Use the overlay, exported JSON, and annotated video to question the result.</p></article>
       </div></section>
+      <section class="message"><div class="eyebrow">A message to the community</div><blockquote>Safety tools should help people see patterns in their work without asking them to surrender the moments they record. Start with curiosity, protect the person in the frame, and treat every score as an invitation to look closer.</blockquote></section>
       <section class="section"><div class="eyebrow">Worth knowing</div><h2 class="section-title">Interesting details behind the screen.</h2><div class="facts">
         <article class="fact"><strong>0</strong><h3>Videos uploaded</h3><p>The core analysis runs client-side. The project does not receive or store the selected video.</p></article>
         <article class="fact"><strong>5</strong><h3>Posture signals</h3><p>The first prototype follows shoulder, elbow, knee, trunk, and neck measurements.</p></article>

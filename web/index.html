@@ -7,18 +7,18 @@
     <title>Strain Check | Private ergonomic screening</title>
     <style>
       :root {
-        --ink: #10233f;
-        --forest: #123d70;
-        --leaf: #dceaf8;
-        --paper: #f3f7fc;
-        --coral: #2672b9;
-        --line: #c3d5e8;
+        --ink: #091a33;
+        --forest: #0b3568;
+        --leaf: #c5dcf2;
+        --paper: #dceafa;
+        --coral: #1d6eaf;
+        --line: #a8c6e3;
         color: var(--ink);
         background: var(--paper);
         font-family: "Trebuchet MS", "Segoe UI", sans-serif;
       }
       * { box-sizing: border-box; }
-      body { margin: 0; min-width: 320px; }
+      body { background: linear-gradient(135deg, #dceafa 0%, #c5dcf2 52%, #e9f3fd 100%); margin: 0; min-width: 320px; }
       main { margin: 0 auto; max-width: 76rem; padding: clamp(1rem, 4vw, 3rem); }
       .topbar { align-items: center; display: flex; justify-content: space-between; margin-bottom: clamp(2rem, 6vw, 5rem); }
       .brand { color: var(--forest); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
@@ -27,7 +27,11 @@
       .hero { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); margin-bottom: 2rem; }
       h1 { color: var(--forest); font-family: Georgia, serif; font-size: clamp(2.45rem, 6vw, 5.5rem); font-weight: 400; letter-spacing: -.03em; line-height: .98; margin: 0; max-width: none; }
       .intro { align-self: end; border-left: 3px solid var(--coral); color: #4c6580; font-size: 1rem; line-height: 1.55; margin: 0; padding-left: 1rem; }
-      .workspace { background: #fafdff; border: 1px solid var(--line); box-shadow: 12px 12px 0 var(--leaf); padding: clamp(1rem, 3vw, 2rem); }
+      .signal-strip { align-items: center; background: #0b3568; color: #dceafa; display: flex; gap: 1.25rem; justify-content: space-between; margin-bottom: 2rem; overflow: hidden; padding: 1rem 1.25rem; position: relative; }
+      .signal-strip::after { background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(220,234,250,.16) 29px 30px); content: ""; inset: 0; pointer-events: none; position: absolute; }
+      .signal-strip span { font-size: .7rem; font-weight: 800; letter-spacing: .12em; position: relative; text-transform: uppercase; z-index: 1; }
+      .signal-mark { background: #77b2df; height: 2px; margin: 0 auto; max-width: 18rem; position: relative; width: 30%; z-index: 1; }
+      .workspace { background: #e9f3fd; border: 1px solid var(--line); box-shadow: 12px 12px 0 #9fc1e2; padding: clamp(1rem, 3vw, 2rem); }
       .model-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
       .eyebrow { color: var(--coral); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
       .model-state { color: #4c6580; font-size: .88rem; margin: .35rem 0 0; }
@@ -56,7 +60,7 @@
       .metric strong { color: var(--forest); display: block; font-family: Georgia, serif; font-size: 2rem; font-weight: 400; margin-top: .7rem; overflow-wrap: anywhere; }
       .notes { color: #5f7690; font-size: .78rem; line-height: 1.5; margin: 1.5rem 0 0; max-width: 65ch; }
       .trust-grid { border-top: 1px solid var(--line); display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); margin-top: 2rem; padding-top: 2rem; }
-      .trust-card { background: #e8f1fb; padding: 1.25rem; }
+      .trust-card { background: #d5e7f8; padding: 1.25rem; }
       .trust-card h2 { color: var(--forest); font-family: Georgia, serif; font-size: 1.45rem; font-weight: 400; margin: .35rem 0 .65rem; }
       .trust-card p, .trust-card li { color: #4c6580; font-size: .86rem; line-height: 1.55; }
       .trust-card ul { margin: .5rem 0 0; padding-left: 1.1rem; }
@@ -66,6 +70,8 @@
         .topbar { margin-bottom: 3rem; }
         .hero { display: block; }
         .intro { margin-top: 1.5rem; }
+        .signal-strip { align-items: flex-start; flex-direction: column; gap: .55rem; }
+        .signal-mark { margin: .2rem 0; width: 7rem; }
         .workspace { box-shadow: 6px 6px 0 var(--leaf); padding: 1rem; }
         .upload-row { display: block; }
         .upload-label { margin-bottom: .75rem; }
@@ -82,11 +88,12 @@
   </head>
   <body>
     <main>
-      <nav class="topbar"><div class="brand">Strain Check / Ergonomic signal</div><div><a class="about-link" href="./about.html">About the project</a><span class="privacy">Private by design</span></div></nav>
+      <nav class="topbar"><div class="brand">Strain Check / Ergonomic signal</div><div><a class="about-link" href="./about.html">About the project</a><span class="privacy">Video stays on device</span></div></nav>
       <section class="hero">
         <h1>See where work asks too much.</h1>
         <p class="intro">A local browser prototype that reads posture from ordinary phone video and returns an early ergonomic screening signal.</p>
       </section>
+      <div class="signal-strip" aria-label="Project principles"><span>Local first</span><div class="signal-mark"></div><span>Explainable</span><div class="signal-mark"></div><span>Human reviewed</span></div>
       <section class="workspace">
         <div class="model-row">
           <div><div class="eyebrow">01 / Prepare this device</div><p id="model-status" class="model-state" role="status">Installing the full-accuracy pose model for the first time...</p></div>
