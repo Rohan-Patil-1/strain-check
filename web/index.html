@@ -24,9 +24,9 @@
       .brand { color: var(--forest); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
       .privacy { border: 1px solid var(--line); color: #4c6a8c; font-size: .68rem; letter-spacing: .08em; padding: .45rem .6rem; text-transform: uppercase; }
       .about-link { color: var(--forest); font-size: .78rem; font-weight: 800; margin-right: 1rem; text-decoration: none; }
-      .hero { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); margin-bottom: 2rem; }
-      h1 { color: var(--forest); font-family: Georgia, serif; font-size: clamp(2.45rem, 6vw, 5.5rem); font-weight: 400; letter-spacing: -.03em; line-height: .98; margin: 0; max-width: none; }
-      .intro { align-self: end; border-left: 3px solid var(--coral); color: #4c6580; font-size: 1rem; line-height: 1.55; margin: 0; padding-left: 1rem; }
+      .hero { display: block; margin-bottom: 2rem; }
+      h1 { color: var(--forest); font-family: Georgia, serif; font-size: clamp(2.45rem, 5.2vw, 4.8rem); font-weight: 400; letter-spacing: -.03em; line-height: .98; margin: 0; max-width: none; white-space: nowrap; }
+      .intro { border-left: 3px solid var(--coral); color: #4c6580; font-size: 1rem; line-height: 1.55; margin: 1.5rem 0 0; max-width: 42rem; padding-left: 1rem; }
       .signal-strip { align-items: center; background: #0b3568; color: #dceafa; display: flex; gap: 1.25rem; justify-content: space-between; margin-bottom: 2rem; overflow: hidden; padding: 1rem 1.25rem; position: relative; }
       .signal-strip::after { background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(220,234,250,.16) 29px 30px); content: ""; inset: 0; pointer-events: none; position: absolute; }
       .signal-strip span { font-size: .7rem; font-weight: 800; letter-spacing: .12em; position: relative; text-transform: uppercase; z-index: 1; }
@@ -68,8 +68,7 @@
       @media (max-width: 680px) {
         main { padding: 1rem; }
         .topbar { margin-bottom: 3rem; }
-        .hero { display: block; }
-        .intro { margin-top: 1.5rem; }
+        h1 { font-size: clamp(2.35rem, 11vw, 4rem); white-space: normal; }
         .signal-strip { align-items: flex-start; flex-direction: column; gap: .55rem; }
         .signal-mark { margin: .2rem 0; width: 7rem; }
         .workspace { box-shadow: 6px 6px 0 var(--leaf); padding: 1rem; }
@@ -88,7 +87,7 @@
   </head>
   <body>
     <main>
-      <nav class="topbar"><div class="brand">Strain Check / Ergonomic signal</div><div><a class="about-link" href="./about.html">About the project</a><span class="privacy">Video stays on device</span></div></nav>
+      <nav class="topbar"><div class="brand">Strain Check / Posture review</div><div><a class="about-link" href="./about.html">About the project</a><span class="privacy">Video stays on device</span></div></nav>
       <section class="hero">
         <h1>See where work asks too much.</h1>
         <p class="intro">A local browser prototype that reads posture from ordinary phone video and returns an early ergonomic screening signal.</p>

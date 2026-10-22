@@ -14,7 +14,7 @@
       .brand, .eyebrow { color: #123d70; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
       nav a { color: #23629b; font-size: .85rem; font-weight: 800; text-decoration: none; }
       header { border-left: 4px solid #2672b9; margin-bottom: 4rem; padding-left: 1.25rem; }
-      h1 { color: #123d70; font-family: Georgia, serif; font-size: clamp(3rem, 8vw, 7rem); font-weight: 400; letter-spacing: -.04em; line-height: .92; margin: 0; max-width: 10ch; }
+      h1 { color: #123d70; font-family: Georgia, serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 400; letter-spacing: -.04em; line-height: .94; margin: 0; max-width: none; white-space: nowrap; }
       .lead { color: #4c6580; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.55; margin: 1.5rem 0 0; max-width: 42rem; }
       .author { background: #c5dcf2; display: grid; gap: 2rem; grid-template-columns: .7fr 1.3fr; margin-bottom: 1rem; padding: clamp(1.25rem, 4vw, 2.5rem); }
       .author h2, .section-title { color: #123d70; font-family: Georgia, serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; margin: .4rem 0 1rem; }
@@ -42,6 +42,7 @@
       .contact-link svg { fill: currentColor; height: 1.15rem; width: 1.15rem; }
       footer { color: #58718d; font-size: .8rem; line-height: 1.55; margin-top: 4rem; max-width: 50rem; }
       @media (max-width: 760px) {
+        h1 { font-size: clamp(2.4rem, 12vw, 4rem); white-space: normal; }
         .author, .workflow, .facts { grid-template-columns: 1fr; }
         .workflow { gap: .75rem; }
         .author-mark { min-height: 8rem; }
