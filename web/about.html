@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#123d70">
+    <title>About Strain Check</title>
+    <style>
+      :root { color: #10233f; background: #f3f7fc; font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      main { margin: 0 auto; max-width: 74rem; padding: clamp(1rem, 4vw, 3rem); }
+      nav { align-items: center; display: flex; justify-content: space-between; margin-bottom: clamp(3rem, 8vw, 7rem); }
+      .brand, .eyebrow { color: #123d70; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      nav a { color: #23629b; font-size: .85rem; font-weight: 800; text-decoration: none; }
+      header { border-left: 4px solid #2672b9; margin-bottom: 4rem; padding-left: 1.25rem; }
+      h1 { color: #123d70; font-family: Georgia, serif; font-size: clamp(3rem, 8vw, 7rem); font-weight: 400; letter-spacing: -.04em; line-height: .92; margin: 0; max-width: 10ch; }
+      .lead { color: #4c6580; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.55; margin: 1.5rem 0 0; max-width: 42rem; }
+      .author { background: #dceaf8; display: grid; gap: 2rem; grid-template-columns: .7fr 1.3fr; margin-bottom: 1rem; padding: clamp(1.25rem, 4vw, 2.5rem); }
+      .author h2, .section-title { color: #123d70; font-family: Georgia, serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; margin: .4rem 0 1rem; }
+      .author p, .fact p, .step p { color: #4c6580; line-height: 1.6; margin: 0; }
+      .author-mark { align-items: center; background: #123d70; color: #e8f1fb; display: flex; font-family: Georgia, serif; font-size: 5rem; justify-content: center; min-height: 12rem; }
+      .section { border-top: 1px solid #c3d5e8; margin-top: 4rem; padding-top: 2rem; }
+      .workflow { display: grid; gap: 1rem; grid-template-columns: repeat(5, 1fr); }
+      .step, .fact { background: #e8f1fb; padding: 1.25rem; }
+      .step-number { color: #2672b9; font-family: Georgia, serif; font-size: 2rem; }
+      .step h3, .fact h3 { color: #123d70; font-size: 1rem; margin: .7rem 0 .55rem; }
+      .facts { display: grid; gap: 1rem; grid-template-columns: repeat(3, 1fr); }
+      .fact strong { color: #123d70; display: block; font-family: Georgia, serif; font-size: 2rem; font-weight: 400; margin-bottom: .6rem; }
+      footer { color: #6c83a0; font-size: .8rem; line-height: 1.55; margin-top: 4rem; max-width: 50rem; }
+      @media (max-width: 760px) {
+        .author, .workflow, .facts { grid-template-columns: 1fr; }
+        .workflow { gap: .75rem; }
+        .author-mark { min-height: 8rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><div class="brand">Strain Check / About</div><a href="./index.html">Back to analysis</a></nav>
+      <header>
+        <div class="eyebrow">A small tool for a large question</div>
+        <h1>Make invisible strain easier to see.</h1>
+        <p class="lead">Strain Check turns ordinary phone video into an early, explainable ergonomic screening signal. It is designed to help people notice posture patterns, ask better questions, and decide what deserves a closer review.</p>
+      </header>
+      <section class="author">
+        <div class="author-mark" aria-hidden="true">SC</div>
+        <div><div class="eyebrow">Author</div><h2>Rohan Patil</h2><p>Strain Check is an independent prototype built to explore privacy-conscious ergonomic assessment from everyday phone video. The project combines browser pose estimation, joint-angle measurement, and transparent RULA/REBA-inspired screening logic.</p></div>
+      </section>
+      <section class="section"><div class="eyebrow">How it works</div><h2 class="section-title">From a local clip to a useful signal.</h2><div class="workflow">
+        <article class="step"><div class="step-number">01</div><h3>Capture</h3><p>Select a short work-task video from your device. The app does not force the camera open.</p></article>
+        <article class="step"><div class="step-number">02</div><h3>See the body</h3><p>MediaPipe identifies body landmarks directly in the browser.</p></article>
+        <article class="step"><div class="step-number">03</div><h3>Measure</h3><p>Landmarks become shoulder, elbow, knee, trunk, and neck angles.</p></article>
+        <article class="step"><div class="step-number">04</div><h3>Screen</h3><p>Deterministic prototype rules produce RULA and REBA-style scores.</p></article>
+        <article class="step"><div class="step-number">05</div><h3>Review</h3><p>Use the overlay, exported JSON, and annotated video to question the result.</p></article>
+      </div></section>
+      <section class="section"><div class="eyebrow">Worth knowing</div><h2 class="section-title">Interesting details behind the screen.</h2><div class="facts">
+        <article class="fact"><strong>0</strong><h3>Videos uploaded</h3><p>The core analysis runs client-side. The project does not receive or store the selected video.</p></article>
+        <article class="fact"><strong>5</strong><h3>Posture signals</h3><p>The first prototype follows shoulder, elbow, knee, trunk, and neck measurements.</p></article>
+        <article class="fact"><strong>100%</strong><h3>Explainable rules</h3><p>The score is built from visible measurements and thresholds rather than hidden training predictions.</p></article>
+      </div></section>
+      <footer>Strain Check is a prototype screening tool, not medical advice and not a formal workplace assessment. Do not use it alone to make employment, legal, or safety decisions. Stop recording if an activity causes pain or feels unsafe, and obtain consent before recording another person.</footer>
+    </main>
+  </body>
+</html>

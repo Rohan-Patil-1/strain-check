@@ -32,7 +32,7 @@ export function drawAnnotatedFrame(canvas, video, landmarks, angles, rula, reba)
       context.lineTo(second.x * width, second.y * height);
       context.stroke();
     }
-    context.fillStyle = "#fffdf7";
+    context.fillStyle = "#fafdff";
     context.strokeStyle = state.color;
     for (const point of landmarks) {
       if ((point.visibility ?? 1) < 0.5) continue;
@@ -55,7 +55,7 @@ function drawPanel(context, width, height, state, angles, rula, reba, hasPose) {
   context.fillStyle = state.color;
   context.font = `800 ${Math.max(16, width / 42)}px Trebuchet MS, sans-serif`;
   context.fillText(state.label, 30, 48);
-  context.fillStyle = "#fffdf7";
+  context.fillStyle = "#fafdff";
   context.font = `600 ${Math.max(11, width / 75)}px Trebuchet MS, sans-serif`;
   const lines = [
     `Neck ${formatAngle(angles.neck)}`,
