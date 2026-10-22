@@ -179,7 +179,10 @@ exportButton.addEventListener("click", () => {
 });
 
 exportVideoButton.addEventListener("click", () => {
-  if (!latestAnnotatedVideo) return;
+  if (!latestAnnotatedVideo) {
+    status.textContent = "Run Analyze full video first; the annotated download will appear when processing finishes.";
+    return;
+  }
   const link = document.createElement("a");
   link.href = URL.createObjectURL(latestAnnotatedVideo);
   link.download = "strain-check-annotated.webm";

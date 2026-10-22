@@ -100,7 +100,7 @@
         <div class="video-wrap"><video id="video" controls playsinline></video><canvas id="overlay" aria-label="Annotated posture overlay"></canvas></div>
         <div class="controls">
           <button id="export" type="button" disabled>Download results</button>
-          <button id="export-video" type="button" disabled>Download annotated video</button>
+          <button id="export-video" type="button" title="Run the full analysis first">Download annotated video</button>
           <label>Sample every <input id="sample-rate" type="number" min="1" max="30" value="10"> frames/sec</label>
         </div>
         <progress id="progress" value="0" max="1" aria-label="Video analysis progress"></progress>
