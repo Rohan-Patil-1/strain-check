@@ -37,14 +37,14 @@ async function createPoseLandmarker() {
   const modelBuffer = await readModelWithProgress(response);
   setModelProgress(0.9, "Installing the model in this browser...");
   return PoseLandmarker.createFromOptions(vision, {
-    baseOptions: { modelAssetBuffer: { data: modelBuffer }, delegate: "CPU" },
+    baseOptions: { modelAssetBuffer: modelBuffer, delegate: "CPU" },
     runningMode: "VIDEO",
     numPoses: 1,
   });
 }
 
 async function readModelWithProgress(response) {
-  if (!response.body) return response.arrayBuffer();
+  if (!response.body) return new Uint8Array(await response.arrayBuffer());
   const reader = response.body.getReader();
   const total = Number(response.headers.get("content-length")) || 0;
   const chunks = [];
@@ -62,7 +62,7 @@ async function readModelWithProgress(response) {
     buffer.set(chunk, offset);
     offset += chunk.length;
   }
-  return buffer.buffer;
+  return buffer;
 }
 
 function setModelProgress(value, label) {
