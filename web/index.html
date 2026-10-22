@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Strain Check Browser Pose Test</title>
+    <style>
+      :root { color: #17211b; background: #eef2ed; font-family: Georgia, serif; }
+      body { margin: 0 auto; max-width: 62rem; padding: 2rem 1rem 4rem; }
+      main { background: #fffdf7; border: 1px solid #d2d9cd; padding: clamp(1rem, 4vw, 2.5rem); }
+      h1 { color: #174c3a; margin-top: 0; }
+      .controls { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0; }
+      button { background: #174c3a; border: 0; color: white; cursor: pointer; padding: .7rem 1rem; }
+      button:disabled { background: #9aa59b; cursor: not-allowed; }
+      video { background: #17211b; display: block; max-height: 32rem; max-width: 100%; width: 100%; }
+      progress { accent-color: #c45d35; width: min(30rem, 100%); }
+      #status { min-height: 1.5rem; }
+      .results { border-top: 1px solid #d2d9cd; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); margin-top: 1.5rem; padding-top: 1.5rem; }
+      .metric { background: #e8efe6; padding: 1rem; }
+      .metric strong { display: block; font-size: 1.6rem; color: #174c3a; }
+      .notes { color: #4c5a50; font-family: system-ui, sans-serif; font-size: .95rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Strain Check</h1>
+    <p>Select a local work-task video. The browser processes the video on this device.</p>
+    <input id="video-file" type="file" accept="video/*">
+    <video id="video" controls playsinline></video>
+    <div class="controls">
+      <button id="analyze" type="button" title="Choose a video first" disabled>Analyze full video</button>
+      <button id="export" type="button" disabled>Download results</button>
+      <label>Sample every <input id="sample-rate" type="number" min="1" max="30" value="10"> frames/sec</label>
+    </div>
+    <progress id="progress" value="0" max="1"></progress>
+    <p id="status" role="status">Choose a video first; then the Analyze button will become available.</p>
+    <section class="results" aria-live="polite">
+      <div class="metric">Frames analyzed<strong id="frames">-</strong></div>
+      <div class="metric">Frames with a pose<strong id="poses">-</strong></div>
+      <div class="metric">Average RULA<strong id="rula">-</strong></div>
+      <div class="metric">Average REBA<strong id="reba">-</strong></div>
+    </section>
+    <p class="notes">This is a prototype screening result, not a medical or workplace-safety determination. Review the source video and cross-check scores with the official worksheets.</p>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

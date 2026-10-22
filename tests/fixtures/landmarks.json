@@ -1,0 +1,33 @@
+{
+  "source_video": "data/raw/example.mp4",
+  "frames": [
+    {
+      "frame_index": 0,
+      "timestamp_seconds": 0.0,
+      "pose_detected": true,
+      "landmarks": {
+        "left_hip": {"x": 0.0, "y": 2.0, "visibility": 1.0},
+        "left_shoulder": {"x": 0.0, "y": 1.0, "visibility": 1.0},
+        "left_elbow": {"x": 1.0, "y": 1.0, "visibility": 1.0},
+        "right_hip": {"x": 4.0, "y": 2.0, "visibility": 1.0},
+        "right_shoulder": {"x": 4.0, "y": 1.0, "visibility": 1.0},
+        "right_elbow": {"x": 3.0, "y": 1.0, "visibility": 1.0},
+        "left_wrist": {"x": 2.0, "y": 1.0, "visibility": 1.0},
+        "right_wrist": {"x": 2.0, "y": 1.0, "visibility": 1.0},
+        "left_knee": {"x": 0.0, "y": 3.0, "visibility": 1.0},
+        "right_knee": {"x": 4.0, "y": 3.0, "visibility": 1.0},
+        "left_ankle": {"x": 0.0, "y": 4.0, "visibility": 1.0},
+        "right_ankle": {"x": 4.0, "y": 4.0, "visibility": 1.0},
+        "nose": {"x": 2.0, "y": 0.0, "visibility": 1.0},
+        "mid_shoulder": {"x": 2.0, "y": 1.0, "visibility": 1.0},
+        "mid_hip": {"x": 2.0, "y": 2.0, "visibility": 1.0}
+      }
+    },
+    {
+      "frame_index": 1,
+      "timestamp_seconds": 0.04,
+      "pose_detected": false,
+      "landmarks": {}
+    }
+  ]
+}

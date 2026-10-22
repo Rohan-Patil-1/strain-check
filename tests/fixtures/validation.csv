@@ -1,0 +1,5 @@
+clip_id,observed_label,predicted_label
+lift-001,low,low
+lift-002,medium,medium
+reach-001,high,high
+scan-001,low,low
