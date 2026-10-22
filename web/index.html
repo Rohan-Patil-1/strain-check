@@ -43,6 +43,7 @@
       button:disabled { background: #9aa89d; cursor: not-allowed; }
       .video-wrap { background: #18251f; position: relative; }
       video { aspect-ratio: 16 / 9; background: #18251f; display: block; max-height: 42rem; object-fit: contain; width: 100%; }
+      #overlay { height: 100%; left: 0; pointer-events: none; position: absolute; top: 0; width: 100%; }
       .controls { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; margin-top: 1rem; }
       .controls label { color: #52645a; font-size: .85rem; }
       input[type="number"] { background: var(--paper); border: 1px solid var(--line); color: var(--ink); padding: .65rem; width: 4.5rem; }
@@ -89,9 +90,10 @@
           <input id="video-file" type="file" accept="video/*" capture="environment">
           <button id="analyze" type="button" title="Choose a video first" disabled>Analyze full video</button>
         </div>
-        <div class="video-wrap"><video id="video" controls playsinline></video></div>
+        <div class="video-wrap"><video id="video" controls playsinline></video><canvas id="overlay" aria-label="Annotated posture overlay"></canvas></div>
         <div class="controls">
           <button id="export" type="button" disabled>Download results</button>
+          <button id="export-video" type="button" disabled>Download annotated video</button>
           <label>Sample every <input id="sample-rate" type="number" min="1" max="30" value="10"> frames/sec</label>
         </div>
         <progress id="progress" value="0" max="1" aria-label="Video analysis progress"></progress>
