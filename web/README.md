@@ -4,6 +4,7 @@
 
 The page:
 
+- installs the pose model automatically on first open with download progress;
 - lets a user select a local video;
 - loads MediaPipe Tasks Vision in the browser;
 - samples a full local video timeline with Pose Landmarker;
@@ -19,6 +20,6 @@ Serve the `web` folder from a local HTTP server because browser modules and mode
 py -m http.server 8000 --directory web
 ```
 
-Open `http://localhost:8000`, choose a pilot video, and click **Analyze full video**. The sampling rate controls how many frames are analyzed per second. Start with 10 frames/second for a short pilot clip.
+Open `http://localhost:8000`, wait for the model progress bar to reach 100%, choose or record a pilot video, and click **Analyze full video**. The file picker supports camera capture on compatible phones. The sampling rate controls how many frames are analyzed per second. Start with 10 frames/second for a short pilot clip.
 
 This is a browser prototype. The scoring logic is intentionally labeled prototype screening and must be cross-checked against the Python implementation and official worksheets before formal use.
