@@ -65,6 +65,17 @@
       .trust-card p, .trust-card li { color: #4c6580; font-size: .86rem; line-height: 1.55; }
       .trust-card ul { margin: .5rem 0 0; padding-left: 1.1rem; }
       .fine-print { font-size: .72rem !important; }
+      .guidance { background: #d5e7f8; margin-top: 1.5rem; padding: 1.25rem; }
+      .guidance h2 { color: var(--forest); font-family: Georgia, serif; font-size: 1.45rem; font-weight: 400; margin: .35rem 0 .65rem; }
+      .guidance p { color: #4c6580; line-height: 1.55; margin: .4rem 0; }
+      .guidance-grid { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-top: 1.5rem; }
+      .heatmap-card { background: #f4f9fe; padding: 1rem; }
+      .heatmap-card h2 { color: var(--forest); font-family: Georgia, serif; font-size: 1.35rem; font-weight: 400; margin: 0 0 .5rem; }
+      #heatmap { display: block; height: 12rem; width: 100%; }
+      .motion-row { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+      .motion-row small { color: #4c6580; }
+      select { background: var(--paper); border: 1px solid var(--line); color: var(--ink); padding: .65rem; }
+      @media print { .topbar, .hero, .signal-strip, .upload-row, .video-wrap, .controls, #progress, #status, .trust-grid { display: none; } .workspace { border: 0; box-shadow: none; } }
       @media (max-width: 680px) {
         main { padding: 1rem; }
         .topbar { margin-bottom: 3rem; }
@@ -82,6 +93,7 @@
         .metric { min-height: 5.5rem; padding: .75rem; }
         .metric strong { font-size: 1.55rem; }
         .trust-grid { grid-template-columns: 1fr; }
+        .guidance-grid { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -107,9 +119,11 @@
         <div class="video-wrap"><video id="video" controls playsinline></video><canvas id="overlay" aria-label="Annotated posture overlay"></canvas></div>
         <div class="controls">
           <button id="export" type="button" disabled>Download results</button>
-          <button id="export-video" type="button" title="Run the full analysis first">Download annotated video</button>
+          <button id="export-video" type="button" disabled title="Run the full analysis first">Download annotated video</button>
+          <button id="print-report" type="button" disabled>Print / save report</button>
           <label>Sample every <input id="sample-rate" type="number" min="1" max="30" value="10"> frames/sec</label>
         </div>
+        <div class="motion-row"><button id="motion-toggle" type="button">Capture phone motion</button><small id="motion-status">Optional: capture motion while the video is analyzed on a phone.</small></div>
         <progress id="progress" value="0" max="1" aria-label="Video analysis progress"></progress>
         <p id="status" role="status">Prepare the model, then choose a video.</p>
         <section class="results" aria-live="polite">
@@ -118,6 +132,10 @@
           <div class="metric"><span>Average RULA</span><strong id="rula">-</strong></div>
           <div class="metric"><span>Average REBA</span><strong id="reba">-</strong></div>
         </section>
+        <div class="guidance-grid">
+          <section class="guidance"><label class="eyebrow" for="language">Guidance language</label><select id="language" aria-label="Guidance language"></select><h2 id="guidance-title">Plain-language review</h2><p id="guidance-message">Run an analysis to receive a plain-language summary.</p><p id="guidance-disclaimer">Prototype screening only.</p></section>
+          <section class="heatmap-card"><h2>Body-region strain heatmap</h2><canvas id="heatmap" aria-label="Body-region strain heatmap"></canvas></section>
+        </div>
         <p class="notes">Prototype screening only. Review the original video and cross-check results with the official RULA/REBA worksheets before making a workplace decision. Videos stay in this browser and are not uploaded by the app.</p>
         <section class="trust-grid" aria-label="Privacy and safety information">
           <article class="trust-card"><div class="eyebrow">Privacy</div><h2>Your video stays here</h2><p>The selected video is processed in this browser. This project does not upload, store, sell, or share your video with the author, managers, or a project server. Only the model files are downloaded.</p><p class="fine-print">The public CDN and hosting provider may receive ordinary request metadata such as IP address when loading website assets. The video file itself is not sent by this app.</p></article>

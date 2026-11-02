@@ -14,6 +14,9 @@ The page:
 - draws a green/red skeleton overlay with angle labels and posture status;
 - exports the sampled results as JSON;
 - exports the annotated canvas as a WebM video;
+- captures optional phone motion with the DeviceMotion API and estimates repetition frequency;
+- shows a body-region heatmap and plain-language guidance in English, Spanish, and Hindi;
+- prints or saves a local screening report through the browser print dialog;
 - reports how many landmarks were detected;
 - does not upload the video to a server.
 

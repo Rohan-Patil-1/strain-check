@@ -5,12 +5,23 @@ import {
 import { computeJointAngles } from "./angles.js";
 import { drawAnnotatedFrame, postureStatus } from "./overlay.js";
 import { scoreReba, scoreRula } from "./scoring.js";
+import { buildGuidance, availableLanguages } from "./guidance.js";
+import { drawHeatmap } from "./heatmap.js";
+import { createMotionCapture } from "./motion.js";
 
 const videoFile = document.querySelector("#video-file");
 const video = document.querySelector("#video");
 const analyzeButton = document.querySelector("#analyze");
 const exportButton = document.querySelector("#export");
 const exportVideoButton = document.querySelector("#export-video");
+const printButton = document.querySelector("#print-report");
+const motionButton = document.querySelector("#motion-toggle");
+const motionStatus = document.querySelector("#motion-status");
+const languageSelect = document.querySelector("#language");
+const guidanceTitle = document.querySelector("#guidance-title");
+const guidanceMessage = document.querySelector("#guidance-message");
+const guidanceDisclaimer = document.querySelector("#guidance-disclaimer");
+const heatmap = document.querySelector("#heatmap");
 const overlay = document.querySelector("#overlay");
 const sampleRate = document.querySelector("#sample-rate");
 const modelStatus = document.querySelector("#model-status");
@@ -29,6 +40,18 @@ let latestResults;
 let latestAnnotatedVideo;
 let modelError;
 let videoReady = false;
+let motionCapture;
+let motionCaptureActive = false;
+let motionEstimate = null;
+
+for (const language of availableLanguages()) {
+  const option = document.createElement("option");
+  option.value = language.code;
+  option.textContent = language.name;
+  languageSelect.append(option);
+}
+languageSelect.value = "en";
+motionCapture = createMotionCapture();
 
 async function createPoseLandmarker() {
   setModelProgress(0.04, "Loading the vision runtime...");
@@ -134,8 +157,9 @@ analyzeButton.addEventListener("click", async () => {
       const detection = poseLandmarker.detectForVideo(video, time * 1000);
       const landmarks = detection.landmarks?.[0] ?? null;
       const angles = landmarks ? computeJointAngles(landmarks) : { shoulder: null, elbow: null, knee: null, trunk: null, neck: null };
-      const rula = scoreRula(angles);
-      const reba = scoreReba(angles);
+      const frequency = motionEstimate?.repetitionsPerMinute ?? null;
+      const rula = scoreRula(angles, frequency);
+      const reba = scoreReba(angles, frequency);
       const posture = postureStatus(rula, reba);
       drawAnnotatedFrame(overlay, video, landmarks, angles, rula, reba);
       results.push({
@@ -150,10 +174,18 @@ analyzeButton.addEventListener("click", async () => {
       status.textContent = `Analyzing ${Math.round(progress.value * 100)}%...`;
     }
     latestAnnotatedVideo = recorder ? await finishRecording(recorder) : null;
-    latestResults = summarize(results);
+    if (motionCaptureActive) {
+      motionEstimate = motionCapture.stop();
+      motionCaptureActive = false;
+      motionButton.textContent = "Capture phone motion";
+      motionStatus.textContent = `${motionEstimate.peakCount} motion peaks; ${motionEstimate.repetitionsPerMinute ?? "insufficient data"} repetitions/minute`;
+      applyMotionEstimate(results, motionEstimate.repetitionsPerMinute);
+    }
+    latestResults = summarize(results, motionEstimate);
     renderSummary(latestResults);
     exportButton.disabled = false;
     exportVideoButton.disabled = !latestAnnotatedVideo;
+    printButton.disabled = false;
     status.textContent = `Finished. ${latestResults.framesWithPose} of ${latestResults.framesAnalyzed} sampled frames contained a pose.`;
   } catch (error) {
     status.textContent = `Analysis failed: ${error.message}`;
@@ -161,6 +193,24 @@ analyzeButton.addEventListener("click", async () => {
     if (recorder && recorder.state !== "inactive") recorder.stop();
     await seekTo(originalTime);
     analyzeButton.disabled = false;
+  }
+});
+
+motionButton.addEventListener("click", async () => {
+  if (motionCaptureActive) {
+    motionEstimate = motionCapture.stop();
+    motionCaptureActive = false;
+    motionButton.textContent = "Capture phone motion";
+    motionStatus.textContent = `${motionEstimate.peakCount} motion peaks; ${motionEstimate.repetitionsPerMinute ?? "insufficient data"} repetitions/minute`;
+    return;
+  }
+  try {
+    await motionCapture.start();
+    motionCaptureActive = true;
+    motionButton.textContent = "Stop motion capture";
+    motionStatus.textContent = "Motion capture active. Keep the phone with the participant while analyzing.";
+  } catch (error) {
+    motionStatus.textContent = `Motion capture unavailable: ${error.message}`;
   }
 });
 
@@ -176,6 +226,23 @@ exportButton.addEventListener("click", () => {
     URL.revokeObjectURL(link.href);
     link.remove();
   }, 1000);
+});
+
+languageSelect.addEventListener("change", () => {
+  if (latestResults) renderGuidance(latestResults);
+});
+
+printButton.addEventListener("click", () => {
+  if (!latestResults) return;
+  const reportWindow = window.open("", "_blank", "noopener,noreferrer");
+  if (!reportWindow) {
+    status.textContent = "The report window was blocked. Allow pop-ups and try again.";
+    return;
+  }
+  reportWindow.document.write(buildPrintableReport(latestResults));
+  reportWindow.document.close();
+  reportWindow.focus();
+  reportWindow.print();
 });
 
 exportVideoButton.addEventListener("click", () => {
@@ -230,19 +297,36 @@ function seekTo(time) {
   });
 }
 
-function summarize(frames) {
+function summarize(frames, frequency) {
   const complete = frames.filter((frame) => frame.rula.score !== null);
   const rulaAverage = average(complete.map((frame) => frame.rula.score));
   const rebaAverage = average(complete.map((frame) => frame.reba.score));
-  return {
+  const rulaRisk = riskFromAverage(rulaAverage, "RULA");
+  const rebaRisk = riskFromAverage(rebaAverage, "REBA");
+  const riskLevel = riskRank(rulaRisk) >= riskRank(rebaRisk) ? rulaRisk : rebaRisk;
+  const result = {
     sourceFile: videoFile.files[0]?.name ?? "local-video",
     framesAnalyzed: frames.length,
     framesWithPose: frames.filter((frame) => frame.poseDetected).length,
     framesWithCompleteScores: complete.length,
     averageRula: rulaAverage,
     averageReba: rebaAverage,
+    rulaRiskLevel: rulaRisk,
+    rebaRiskLevel: rebaRisk,
+    overallRiskLevel: riskLevel,
+    motion: frequency,
     frames,
   };
+  result.heatmap = drawHeatmap(heatmap, frames);
+  result.guidance = buildGuidance(riskLevel, languageSelect.value);
+  return result;
+}
+
+function applyMotionEstimate(frames, repetitionsPerMinute) {
+  for (const frame of frames) {
+    frame.rula = scoreRula(frame.angles, repetitionsPerMinute);
+    frame.reba = scoreReba(frame.angles, repetitionsPerMinute);
+  }
 }
 
 function average(values) {
@@ -254,4 +338,32 @@ function renderSummary(results) {
   poseCount.textContent = `${results.framesWithPose}/${results.framesAnalyzed}`;
   rulaValue.textContent = results.averageRula ?? "insufficient data";
   rebaValue.textContent = results.averageReba ?? "insufficient data";
+  renderGuidance(results);
+}
+
+function renderGuidance(results) {
+  const guidance = buildGuidance(results.overallRiskLevel, languageSelect.value);
+  results.guidance = guidance;
+  guidanceTitle.textContent = guidance.title;
+  guidanceMessage.textContent = guidance.message;
+  guidanceDisclaimer.textContent = guidance.disclaimer;
+}
+
+function riskFromAverage(score, standard) {
+  if (score === null) return "insufficient_data";
+  if (standard === "RULA") return score <= 2 ? "low" : score <= 4 ? "medium" : score <= 6 ? "high" : "very_high";
+  return score <= 1 ? "negligible" : score <= 3 ? "low" : score <= 7 ? "medium" : score <= 10 ? "high" : "very_high";
+}
+
+function riskRank(level) {
+  return { insufficient_data: 0, negligible: 1, low: 2, medium: 3, high: 4, very_high: 5 }[level] ?? 0;
+}
+
+function buildPrintableReport(results) {
+  const guidance = results.guidance;
+  return `<!doctype html><html><head><meta charset="utf-8"><title>Strain Check report</title><style>body{font:16px Arial;max-width:760px;margin:2rem auto;color:#091a33}h1{color:#0b3568}table{border-collapse:collapse;width:100%}td,th{border:1px solid #a8c6e3;padding:.6rem;text-align:left}.note{background:#e9f3fd;padding:1rem;margin-top:1rem}@media print{button{display:none}}</style></head><body><h1>Strain Check screening report</h1><p>Source: ${escapeHtml(results.sourceFile)}<br>Frames analyzed: ${results.framesAnalyzed}<br>Pose detected: ${results.framesWithPose}/${results.framesAnalyzed}</p><table><tr><th>Measure</th><th>Result</th><th>Risk level</th></tr><tr><td>RULA</td><td>${results.averageRula ?? "insufficient data"}</td><td>${results.rulaRiskLevel}</td></tr><tr><td>REBA</td><td>${results.averageReba ?? "insufficient data"}</td><td>${results.rebaRiskLevel}</td></tr></table><div class="note"><h2>${guidance.title}</h2><p>${guidance.message}</p><p>${guidance.disclaimer}</p></div><p>Generated locally in the browser. Review the original video and official RULA/REBA worksheets before making a workplace decision.</p></body></html>`;
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
 }
