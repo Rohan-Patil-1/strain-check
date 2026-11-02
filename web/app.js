@@ -234,15 +234,25 @@ languageSelect.addEventListener("change", () => {
 
 printButton.addEventListener("click", () => {
   if (!latestResults) return;
-  const reportWindow = window.open("", "_blank", "noopener,noreferrer");
+  const reportWindow = window.open("", "_blank");
   if (!reportWindow) {
     status.textContent = "The report window was blocked. Allow pop-ups and try again.";
     return;
   }
-  reportWindow.document.write(buildPrintableReport(latestResults));
+  const report = buildPrintableReport(latestResults);
+  reportWindow.document.open();
+  reportWindow.document.write(report);
   reportWindow.document.close();
-  reportWindow.focus();
-  reportWindow.print();
+  reportWindow.onload = () => {
+    reportWindow.focus();
+    reportWindow.print();
+  };
+  window.setTimeout(() => {
+    if (!reportWindow.closed) {
+      reportWindow.focus();
+      reportWindow.print();
+    }
+  }, 500);
 });
 
 exportVideoButton.addEventListener("click", () => {
